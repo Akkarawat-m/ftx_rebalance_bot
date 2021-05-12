@@ -1,0 +1,9 @@
+{
+  "apiKey": "BXCUGAO_wK2Hz9ds3WrNnvh9OVlltJ9kl3RgdbkU",
+  "secret": "ggylGfAKlC4c265pD-PMsyIR37E-aGueVtK84bUT",
+  "sub_account": "test_rebalance",
+  "account_name": "TEST_REBLANCE_COACH",
+  "pair": "XRP/USD",
+  "token_name": "XRP",
+  "rebalance_value": 5
+}
