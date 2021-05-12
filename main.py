@@ -12,7 +12,7 @@ import pytz
 import csv
 
 def read_config():
-    with open('real_config.json') as json_file:
+    with open('config.json') as json_file:
         return json.load(json_file)
 
 config = read_config()
