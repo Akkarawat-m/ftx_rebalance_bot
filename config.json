@@ -3,7 +3,7 @@
   "secret": "put_your_secret_here",
   "sub_account": "put_your_subaccount's_name_here",
   "account_name": "named your account",
-  "pair": "put_your_pair_here",
-  "token_name": "put_token_name_here",
+  "pair": "BTC/USD",
+  "token_name": "BTC",
   "rebalance_value": 500
 }

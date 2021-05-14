@@ -139,6 +139,16 @@ def get_cash():
             cash = float(t['availableWithoutBorrow'] )
     return cash
 
+def get_total_asset_value(wallet):
+    wallet = wallet
+    total_asset_value = 0
+
+    for item in wallet:
+        asset_value = round(float(item['usdValue']),2)
+        total_asset_value += asset_value
+    
+    return total_asset_value
+
 def buy_execute():
     pending_buy = get_pending_buy()
     if pending_buy == []:
@@ -196,6 +206,7 @@ def sell_execute():
             pending_sell_id = get_pending_sell()[0]['id']
             print('Sell Order Created Success, Order ID: {}'.format(pending_sell_id))
             print('Waiting For Sell Order To be filled')
+            print("------------------------------")
             time.sleep(10)
             pending_sell = get_pending_sell()
 
@@ -203,6 +214,7 @@ def sell_execute():
             print("Sell order Matched or Cancelled")
             print("Updating Trade Log")
             update_trade_log(pair)
+            print("------------------------------")
         else:
             print('Sell Order is not match, Resending...')
             pending_sell_id = get_pending_sell()[0]['id']
@@ -294,7 +306,6 @@ def update_trade_log(pair):
             d = d.astimezone(pytz.utc)
             Date = d.strftime("%Y-%m-%d")
             Time = d.strftime("%H:%M:%S")
-            time_serie = (d.weekday()*1440)+(d.hour*60)+d.minute
 
             cost = float(list_last_trade[5] * list_last_trade[6])
 
@@ -332,13 +343,9 @@ while True:
         print('Your Remaining Balance : {}'.format(cash))
         print('Checking Your Asset')
 
-        total_asset = 0
-
-        for item in wallet:
-            asset_value = round(float(item['usdValue']),2)
-            total_asset += asset_value
+        total_asset_value = get_total_asset_value(wallet)
             
-        print('Your Total Asset Value is : {}'.format(total_asset))
+        print('Your Total Asset Value is : {}'.format(total_asset_value))
         print("------------------------------")
 
         # Checking Initial Balance Loop
@@ -391,11 +398,13 @@ while True:
         for t in time_sequence:
             cash = get_cash()
             Time = get_time()
+            wallet = get_wallet_details()
 
             print("------------------------------")
             print('Time : {}'.format(Time))
             print('Checking Your Asset')
-            print('Your Total Asset Value is : {}'.format(total_asset))
+            total_asset_value = get_total_asset_value(wallet)
+            print('Your Total Asset Value is : {}'.format(total_asset_value))
             
 
             if cash > 0 and len(wallet) == len(token_name_lst) + 1:
